@@ -5,7 +5,9 @@ import {
   Text,
   View,
   TouchableHighlight,
-  KeyboardAvoidingView
+  KeyboardAvoidingView, 
+  AsyncStorage,
+  AsyncStorageStatic
 } from 'react-native';
 import { TextField } from 'react-native-material-textfield';
 
@@ -15,10 +17,21 @@ export default class LoginScreen extends React.Component{
     this.state = {
         email:'',
         password:''
-        };
-  };
-  render(){
+    };
 
+  };
+  componentDidMount(){
+    this._loadInitialState().done();
+  }
+  _loadInitialState = async() =>{
+
+    let value = await AsyncStorage.getItem('email');
+      if(value !== null){
+        this.props.navigation.navigate('Profile');
+      }
+
+  }
+  render(){
     return (
    <KeyboardAvoidingView behavior='padding'  style={styles.container} enabled>
     <View style={styles.container} >
@@ -28,12 +41,13 @@ export default class LoginScreen extends React.Component{
 
           <View style={styles.container}>
             <View style={{ padding:20 }}>
-                <TextField label="Email" value={professionnels}></TextField>
+                <TextField label="Email" onChange={(email) => this.setState({ email })}></TextField>
+                <TextField label="Mot de passe" onChange={(password) => this.setState({ password}) }></TextField>
             </View>
           </View>
           <View style={{ alignItems:'center'}}>
           <TouchableHighlight
-              style={[styles.buttonContainer, styles.beauteBtn]}>
+              style={[styles.buttonContainer, styles.beauteBtn]} onPress={ () =>this._login() } >
                 <Text style={styles.loginText}>Se connecter</Text></TouchableHighlight>
           </View>
         </ScrollView>
@@ -41,13 +55,35 @@ export default class LoginScreen extends React.Component{
   </KeyboardAvoidingView>
     );
   }
-}
+  //function de connexion
+  _login = () => {
+      fetch('http://localhost:3000/users',  {
+          method : 'POST',
+          headers :{
+            'Accept' :'application/json',
+            'Content-Type': 'application/json',
+          },
+          body : JSON.stringify({
+              email : this.state.email,
+              password : this.state.password,
 
+          })
+      }).then((response) => response.json())
+        .then((res)=> {
+            if (res.success === true){
+              AsyncStorage.setItem('user', res.user);
+              this.props.navigation.navigate('Profile');
+            }else{
+               alert(res.message);
+            }
+        }).done();
+  }
+
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:'#9b59b6'
   },
   contentContainer: {
     paddingTop: 0,
@@ -73,15 +109,12 @@ const styles = StyleSheet.create({
     width:250,
     borderRadius:30,
   },
-  financeBtn: {
-    backgroundColor: "#00b5ec",
-  },
   beauteBtn: {
     marginTop:10,
-    backgroundColor: "#FFF",
+    backgroundColor: "#2980b9",
   },
   loginText:{
-    color:'#333'
+    color:'#FFF'
   },
   txtField :{
     color:'#FFF'

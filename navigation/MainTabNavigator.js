@@ -23,7 +23,8 @@ import HomeBeaute from '../screens/HomeBeaute';
 import HomeFinance from '../screens/HomeFinance';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons'
-import LoginScreen from'../screens/loginUsers/LoginScreen';
+import LoginScreen from '../screens/loginUsers/LoginScreen';
+import Profile from'../screens/loginUsers/Profile';
 
 class LogoHeader extends React.Component {
     render() {
@@ -37,16 +38,6 @@ class LogoHeader extends React.Component {
         );
     }
 }
-class LoginIcon extends React.Component{
-    render(){
-        return(
-            <View style= {{flex:1}}>
-
-            </View>
-        )
-    }
-}
-
 // Configuration of transition left-right/right-left
 const transitionConfig = () => {
     return {
@@ -105,18 +96,22 @@ const AppNavigator = createStackNavigator({
 },{
     initialRouteName: "Home",
     transitionConfig,
-        defaultNavigationOptions: ({ navigation }) => {
+        defaultNavigationOptions: (props) => {
+            const { navigation } = props;
+            return ({
+
         gesturesEnabled: true,
         transitionStyle: 'inverted',
         headerTitle:  <LogoHeader/>,
-        headerRight: <TouchableOpacity onPress={() => navigation.navigate({ routeName: 'Login' })}>
-            <FontAwesomeIcon icon={faSignInAlt} size={20}  style={{ color: '#FFF'}} />
-        </TouchableOpacity>,
+            headerRight: <TouchableOpacity onPress={() => navigation.navigate({ routeName: 'Login' })}>
+            <FontAwesomeIcon icon={faSignInAlt} size={20}  style={{ color: '#FFF', marginRight: 10 }} />
+            </TouchableOpacity>,
         headerStyle: {
             backgroundColor: '#3498db',
         },
         headerTintColor: '#fff'
-    },
+        })
+    }
 })
 
 const styles = StyleSheet.create({
