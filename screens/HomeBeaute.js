@@ -8,7 +8,7 @@ import {
   Text,
   View,
   TouchableHighlight,
-  KeyboardAvoidingView 
+  KeyboardAvoidingView
 } from 'react-native';
 import { TextField } from 'react-native-material-textfield';
 
@@ -36,12 +36,12 @@ export default class HomeBeaute extends React.Component{
             <View style={{ padding:20 }}>
               <Text style={styles.title}>Vos rendez-vous beauté chez Pickidate</Text>
                 <TextField label="Nom de l'établissement" value={professionnels}></TextField>
-                <TextField label='Prestations' value={prestations}></TextField>
-                <TextField label='Ville' value={ville}></TextField>
+                <TextField label='Prestations' value={prestations}  style={ styles.txtField}></TextField>
+                <TextField label='Ville' value={ville}  style={ styles.txtField}></TextField>
             </View>
           </View>
           <View style={{ alignItems:'center'}}>
-          <TouchableHighlight 
+          <TouchableHighlight
               style={[styles.buttonContainer, styles.beauteBtn]}>
                 <Text style={styles.loginText}>Rechercher</Text></TouchableHighlight>
           </View>
@@ -55,15 +55,14 @@ export default class HomeBeaute extends React.Component{
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor:'#9b59b6'
-  },
+    flex: 1
+    },
   contentContainer: {
     paddingTop: 0,
 
   },
   title:{
-    color:'#FFF',
+    color:'#333',
     fontSize: 16,
     textAlign:'center',
     marginTop:20,
@@ -130,9 +129,12 @@ const styles = StyleSheet.create({
   },
   beauteBtn: {
     marginTop:10,
-    backgroundColor: "#FFF",
+    backgroundColor: "#2980b9",
   },
   loginText:{
-    color:'#333'
+    color:'#FFF'
+  },
+  txtField :{
+    color:'#FFF'
   }
 });

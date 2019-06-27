@@ -10,7 +10,7 @@ import {
   View,
   TouchableHighlight,
   Linking,
-  Button 
+  Button
 
 } from 'react-native';
 import { MonoText } from '../components/StyledText';
@@ -41,7 +41,7 @@ export default class HomeScreen extends React.Component{
               style={[styles.buttonContainer, styles.beauteBtn]}>
                 <Text style={styles.loginText}>Beauté</Text>
               </TouchableHighlight>
-              <TouchableHighlight onPress={() => this.props.navigation.navigate('Finance')} 
+              <TouchableHighlight onPress={() => this.props.navigation.navigate('Finance')}
                style={[styles.buttonContainer, styles.financeBtn]}>
                 <Text style={styles.loginText}>Finance</Text>
               </TouchableHighlight>

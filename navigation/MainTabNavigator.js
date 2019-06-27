@@ -6,7 +6,8 @@ import {
     Animated,
     Image,
     StyleSheet,
-    View
+    View,
+    TouchableOpacity
 } from 'react-native';
 import {
     createStackNavigator,
@@ -20,15 +21,29 @@ import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import HomeBeaute from '../screens/HomeBeaute';
 import HomeFinance from '../screens/HomeFinance';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faSignInAlt } from '@fortawesome/free-solid-svg-icons'
+import LoginScreen from'../screens/loginUsers/LoginScreen';
 
 class LogoHeader extends React.Component {
     render() {
         return (
+            <View style = {{ flex:1, alignItems:'center' }}>
             <Image
                 style={styles.logo}
-                source={require('../assets/images/logo-pickidate-cut.png')}
-            />
+                source={require('../assets/images/logo-pickidate-cut.png')}/>
+
+            </View>
         );
+    }
+}
+class LoginIcon extends React.Component{
+    render(){
+        return(
+            <View style= {{flex:1}}>
+
+            </View>
+        )
     }
 }
 
@@ -85,27 +100,30 @@ SettingsStack.navigationOptions = {
 const AppNavigator = createStackNavigator({
     Home: HomeScreen,
     Beaute: HomeBeaute,
-    Finance: HomeFinance
+    Finance: HomeFinance,
+    Login: LoginScreen
 },{
     initialRouteName: "Home",
     transitionConfig,
-    defaultNavigationOptions: {
+        defaultNavigationOptions: ({ navigation }) => {
         gesturesEnabled: true,
         transitionStyle: 'inverted',
-        headerTitle: <LogoHeader/>,
+        headerTitle:  <LogoHeader/>,
+        headerRight: <TouchableOpacity onPress={() => navigation.navigate({ routeName: 'Login' })}>
+            <FontAwesomeIcon icon={faSignInAlt} size={20}  style={{ color: '#FFF'}} />
+        </TouchableOpacity>,
         headerStyle: {
             backgroundColor: '#3498db',
         },
-        headerTintColor: '#fff',
+        headerTintColor: '#fff'
     },
 })
 
 const styles = StyleSheet.create({
     logo: {
         width: 100,
-        height: 50,
+        height: 40,
         resizeMode: 'contain',
-        backgroundColor: 'pink'
     }
 });
 
