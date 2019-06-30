@@ -24,7 +24,7 @@ import HomeFinance from '../screens/HomeFinance';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons'
 import LoginScreen from '../screens/loginUsers/LoginScreen';
-import Profile from'../screens/loginUsers/Profile';
+import ProfileScreen from '../screens/loginUsers/ProfileScreen';
 
 class LogoHeader extends React.Component {
     render() {
@@ -92,7 +92,9 @@ const AppNavigator = createStackNavigator({
     Home: HomeScreen,
     Beaute: HomeBeaute,
     Finance: HomeFinance,
-    Login: LoginScreen
+    Login: LoginScreen,
+    Profile: ProfileScreen
+
 },{
     initialRouteName: "Home",
     transitionConfig,

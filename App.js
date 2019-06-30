@@ -4,6 +4,7 @@ import * as Font from 'expo-font';
 import React, { useState } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import MyProvider from './provider';
 
 import AppNavigator from './navigation/AppNavigator';
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
@@ -23,11 +24,14 @@ export default function App(props) {
     );
   } else {
     return (
+      <MyProvider>
       <View style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar barStyle="hidden" />}
         <StatusBar hidden={true} />
         <AppNavigator />
       </View>
+      </MyProvider>
+
     );
   }
 }
@@ -48,7 +52,7 @@ async function loadResourcesAsync() {
   ]);
 }
 
-function handleLoadingError(error: Error) {
+function handleLoadingError(error) {
   // In this case, you might want to report the error to your error reporting
   // service, for example Sentry
   console.warn(error);

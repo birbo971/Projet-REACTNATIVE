@@ -10,6 +10,7 @@ import {
   AsyncStorageStatic
 } from 'react-native';
 import { TextField } from 'react-native-material-textfield';
+import { TextInput } from 'react-native-gesture-handler';
 
 export default class LoginScreen extends React.Component{
   constructor(props) {
@@ -41,8 +42,12 @@ export default class LoginScreen extends React.Component{
 
           <View style={styles.container}>
             <View style={{ padding:20 }}>
-                <TextField label="Email" onChange={(email) => this.setState({ email })}></TextField>
-                <TextField label="Mot de passe" onChange={(password) => this.setState({ password}) }></TextField>
+                <TextInput style={{ height: 40, borderColor: 'lightgrey', borderWidth: 1, padding: 3, marginBottom: 5 }}
+                  placeholder="Email"
+                  onChangeText={(email) => this.setState({ email })} />
+                <TextInput style={{ height: 40, borderColor: 'lightgrey', borderWidth: 1, padding: 3 }}
+                  placeholder="Mot de passe"
+                  onChangeText={(password) => this.setState({ password })} secureTextEntry={true} />
             </View>
           </View>
           <View style={{ alignItems:'center'}}>
@@ -57,7 +62,7 @@ export default class LoginScreen extends React.Component{
   }
   //function de connexion
   _login = () => {
-      fetch('http://localhost:3000/users',  {
+      fetch('http://192.168.0.23:3001/users',  {
           method : 'POST',
           headers :{
             'Accept' :'application/json',
